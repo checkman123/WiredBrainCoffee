@@ -4,8 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Wired Brain Coffee Admin</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment names="Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/WiredBrainCoffeeAdmin.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -19,22 +24,22 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page">Dashboard</a>
+                                <a class="nav-link" aria-current="page" asp-page="/Index">Dashboard</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Products
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                    <li><a class="dropdown-item">View All</a></li>
-                                    <li><a class="dropdown-item">Add New</a></li>
+                                    <li><a class="dropdown-item" asp-page="/products/ViewAllProducts">View All</a></li>
+                                    <li><a class="dropdown-item" asp-page="/products/AddProduct">Add New</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link disabled">Orders (Coming soon)</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link">Help</a>
+                                <a class="nav-link" asp-page="/Help">Help</a>
                             </li>
                         </ul>
                     </div>
@@ -59,7 +64,25 @@
                 </div>
                 <div class="col-md-4">
                     <div class="footer-pic">
-                        <p>Picture content goes here.</p>
+                        @{
+                            var urlPath = Context.Request.Path;
+                        }
+
+                        @switch(urlPath.Value.ToLower())
+                        {
+                            case "/":
+                                <img src="~/images/menu/cake.png" />
+                                break;
+                            case "/products/addproduct":
+                                <img src="~/images/menu/cappucino.png" />
+                                break;
+                            case "/products/viewallproducts":
+                                <img src="~/images/menu/granola.png" />
+                                break;
+                            case "/help":
+                                <img src="~/images/menu/waffles.png" />
+                                break;
+                        }
                     </div>
                 </div>
             </div>
