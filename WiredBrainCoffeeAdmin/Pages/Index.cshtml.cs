@@ -13,6 +13,7 @@ namespace WiredBrainCoffeeAdmin.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        public List<SurveyItem> SurveyResults { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger)
         {
@@ -21,6 +22,9 @@ namespace WiredBrainCoffeeAdmin.Pages
 
         public void OnGet()
         {
+            var rawJson = System.IO.File.ReadAllText("wwwroot/sampledata/survey.json");
+            SurveyResults = JsonSerializer.Deserialize<List<SurveyItem>>(rawJson);
+
 
         }
     }
