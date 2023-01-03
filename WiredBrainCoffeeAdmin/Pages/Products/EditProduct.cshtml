@@ -5,3 +5,46 @@
 
 <h1>Edit Product @RouteData.Values["id"]</h1>
 <hr/>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All"></div>
+            <div col="md-3">
+                <label asp-for="EditProduct.Name">Name</label>
+                <input asp-for="EditProduct.Name" class="form-control" />
+            </div>
+            <div col="md-3">
+                <label asp-for="EditProduct.ShortDescription">ShortDescription</label>
+                <input asp-for="EditProduct.ShortDescription" class="form-control" />
+            </div>
+            <div col="md-3">
+                <label asp-for="EditProduct.Description">Description</label>
+                <textarea asp-for="EditProduct.Description" class="form-control"> </textarea>
+            </div>
+            <div col="md-3">
+                <label asp-for="EditProduct.Price">Price</label>
+                <input asp-for="EditProduct.Price" class="form-control" />
+            </div>
+            <div col="md-3">
+                <label asp-for="EditProduct.Category">Category</label>
+                <select asp-for="EditProduct.Category" class="form-control">
+                    <option value="Beverage">Beverage</option>
+                    <option value="BeFoodverage">Food</option>
+                </select>
+            </div>
+            <div col="md-3">
+                <label asp-for="EditProduct.ImageFile">Current Image</label> <br />
+                <input type="hidden" asp-for="EditProduct.ImageFile" class="form-control" />
+                <img src="~/images/menu/@Model.EditProduct.ImageFile"/>
+            </div>
+            <div col="md-3">
+                <label asp-for="EditProduct.Upload">Image</label>
+                <input asp-for="EditProduct.Upload" class="form-control" />
+            </div>
+
+            <button asp-page-handler="edit" class="btn btn-success mt-3">Edit</button>
+            <button asp-page-handler="delete" class="btn btn-danger mt-3">Delete</button>
+        </form>
+    </div>
+</div>
